@@ -1,20 +1,20 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% block header %}
 
  <header>
       <nav class="container container--70">
         <ul class="nav--actions">
-          <li><a href="#">Zaloguj</a></li>
-          <li class="highlighted"><a href="#">Załóż konto</a></li>
+          <li><a href="{% url 'login' %}">Zaloguj</a></li>
+          <li class="highlighted"><a href="{% url 'register' %}">Załóż konto</a></li>
         </ul>
-
-        <ul>
-          <li><a href="#">Start</a></li>
-          <li><a href="#">O co chodzi?</a></li>
-          <li><a href="#">O nas</a></li>
-          <li><a href="#">Fundacje i organizacje</a></li>
-          <li><a href="#">Kontakt</a></li>
-        </ul>
+{% include "header_list.html" %}
+<!--        <ul>-->
+<!--          <li><a href="#">Start</a></li>-->
+<!--          <li><a href="#">O co chodzi?</a></li>-->
+<!--          <li><a href="#">O nas</a></li>-->
+<!--          <li><a href="#">Fundacje i organizacje</a></li>-->
+<!--          <li><a href="#">Kontakt</a></li>-->
+<!--        </ul>-->
       </nav>
     </header>
 
