@@ -98,6 +98,8 @@ LANGUAGE_CODE = 'pl-pl'
 
 TIME_ZONE = 'Europe/Warsaw'
 
+TIME_INPUT_FORMATS = ('%H:%M')
+
 USE_I18N = True
 
 USE_L10N = True

@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from charity_app.models import Category, Institution, Donation
 
 # CATEGORY_CHOICE = (
@@ -58,16 +60,33 @@ from charity_app.models import Category, Institution, Donation
 # o5 = Category.objects.get(pk=4)
 # I5.categories.add(o5)
 
-# Donation.objects.create(
-#     quantity =
-#     categories =
-#     institution =
-#     address =
-#     phone_number =
-#     city =
-#     zip_code =
-#     pick_up_date =
-#     pick_up_time =
-#     pick_up_comment =
-#     user =
+c1 = Category.objects.get(pk=2)
+c2 = Category.objects.get(pk=4)
+D1 = Donation.objects.create(
+    quantity = 4,
+    institution = Institution.objects.get(pk=2),
+    address = "adress 22",
+    phone_number = "1230000000",
+    city = "Warszawa",
+    zip_code = "22-444",
+    pick_up_date = "2021-01-10",
+    pick_up_time = "20:00",
+    pick_up_comment = "komentarz do zamowienia nr 2",
+    user = User.objects.get(id=5)
+)
+
+D2 = Donation.objects.create(
+    quantity = 1,
+    institution = Institution.objects.get(pk=5),
+    address = "adress 3",
+    phone_number = "333444555",
+    city = "Warszawa",
+    zip_code = "55-255",
+    pick_up_date = "2021-01-15",
+    pick_up_time = "12:00",
+    pick_up_comment = "komentarz do zamowienia nr 3",
+    user = User.objects.get(id=5)
+)
+D1.categories.add(c1)
+D2.categories.add(c2)
 

@@ -1,13 +1,27 @@
 {% extends "base1.html" %}
 {% load static %}
 {% block header %}
-
+{% if request.user.is_authenticated %}
+<header class="header--form-page">
+      <nav class="container container--70">
+        <ul class="nav--actions">
+          <li class="logged-user">
+            Witaj {{ request.user.first_name }}
+            <ul class="dropdown">
+              <li><a href="#">Profil</a></li>
+              <li><a href="#">Ustawienia</a></li>
+              <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            </ul>
+          </li>
+        </ul>
+{% else %}
 <header class="header--main-page">
       <nav class="container container--70">
         <ul class="nav--actions">
           <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
           <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
+        {% endif %}
 {% include "header_list.html" %}
 <!--        <ul>-->
 <!--          <li><a href="" class="btn btn&#45;&#45;without-border active">Start</a></li>-->
@@ -35,13 +49,13 @@
     <section id="stats" class="stats">
       <div class="container container--85">
         <div class="stats--item">
-          <em>10</em>
+          <em>{{ total_quantity }}</em>
           <h3>Oddanych worków</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum tempora!</p>
         </div>
 
         <div class="stats--item">
-          <em>5</em>
+          <em>{{ no_of_inst }}</em>
           <h3>Wspartych organizacji</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
         </div>
