@@ -1,0 +1,24 @@
+{% extends "base1.html" %}
+{% block header-class %}
+<header>
+{% endblock header-class %}
+{% block header %}{% endblock header %}
+{% block content %}
+      <div class="slogan container container--90">
+        <div class="slogan--item">
+        <h2>Dane użytkownika:</h2>
+        <h1>Imie: {{ user.first_name }}</h1>
+        <h1>nazwoski: {{ user.last_name }}</h1>
+        <h1>email: {{ user.email }}</h1>
+            {% for donation in donations %}
+            <h2></h2>
+            <h1>Nazwa instytucji: {{ donation.institution }}</h1>
+            <h1>Ilosc workow: {{ donation.quantity }}</h1>
+            {% for cat in donation.categories.all %}
+            <h1>Jakie rzeczy: {{ cat.name }}</h1>
+            {% endfor %}
+            <h1>Data oddania: {{ donation.pick_up_date }}</h1>
+            {% endfor %}
+        </div>
+      </div>
+{% endblock content %}

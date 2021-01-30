@@ -28,9 +28,15 @@ class LandingPage(View):
         return render(request, "index.html", ctx)
 
 
-class AddDonation(View):
-    def get(self, request):
-        return render(request, "form.html")
+class UserDetails(View):
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        donations = Donation.objects.filter(user=user.id)
+        ctx = {
+            "user": user,
+            "donations": donations
+        }
+        return render(request, "user_details.html", ctx)
 
 
 class Login(FormView):
@@ -108,10 +114,37 @@ class Register(View):
 
 
 class Form(View):
-    def get(self, request):
+    def get(self, request, pk):
         categories = Category.objects.all()
         institutions = Institution.objects.all()
         ctx = {
             "categories": categories,
             "institutions": institutions}
         return render(request, "form.html", ctx)
+    def post(selfself, request, pk):
+        quantity = request.POST.get("bags")
+        categories = request.POST.get("categories")
+        institution = request.POST.get("organization")
+        adress = request.POST.get("adress")
+        phone_number = request.POST.get("phone")
+        city = request.POST.get("city")
+        zip_code = request.POST.get("postcode")
+        pick_up_date = request.POST.get("date")
+        pick_up_time = request.POST.get("time")
+        pick_up_comment = request.POST.get("more_info")
+        user = User.objects.get(pk=pk)
+        donation = Donation()
+        donation.quantity = quantity
+        donation.institution = institution
+        donation.address = adress
+        donation.phone_number = phone_number
+        donation.city = city
+        donation.zip_code = zip_code
+        donation.pick_up_date = pick_up_date
+        donation.pick_up_time = pick_up_time
+        donation.pick_up_comment = pick_up_comment
+        donation.user = user
+        for cat in categories:
+            donation.categories.add(cat)
+        # donation.save()
+        return redirect("form-confirmation.html")

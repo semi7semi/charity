@@ -72,7 +72,7 @@ D1 = Donation.objects.create(
     pick_up_date = "2021-01-10",
     pick_up_time = "20:00",
     pick_up_comment = "komentarz do zamowienia nr 2",
-    user = User.objects.get(id=5)
+    user = User.objects.get(id=10)
 )
 
 D2 = Donation.objects.create(
@@ -85,7 +85,7 @@ D2 = Donation.objects.create(
     pick_up_date = "2021-01-15",
     pick_up_time = "12:00",
     pick_up_comment = "komentarz do zamowienia nr 3",
-    user = User.objects.get(id=5)
+    user = User.objects.get(id=10)
 )
 D1.categories.add(c1)
 D2.categories.add(c2)
