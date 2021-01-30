@@ -59,6 +59,22 @@ document.addEventListener("DOMContentLoaded", function() {
     /**
      * TODO: callback to page change event
      */
+    categorySelect(e) {
+      e.preventDefault();
+      const formSelect = e.currentTarget.elements;
+      if (formSelect.checked === true) {
+        let categories = formSelect.dataset.id
+      }
+      const institution = document.querySelectorAll(".js-inst")
+      for (i = 0; i < institution.length; i++)
+        if (institution[i].dataset.id === categories) {
+          institution[i].querySelector("div.js-inst").classList.add("disp_none")
+        }
+
+    }
+
+
+
     changePage(e) {
       e.preventDefault();
       const page = e.target.dataset.page;

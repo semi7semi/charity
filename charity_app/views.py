@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import LoginView
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views import View
@@ -18,7 +17,6 @@ class LandingPage(View):
         donation = Donation.objects.all()
         total_quantity = sum(donation.values_list('quantity', flat=True))
         no_of_inst = len(donation.annotate(Count('institution', distinct=True)))
-
         ctx = {
             "fundations": fundations,
             "organizations": organizations,
@@ -35,13 +33,11 @@ class AddDonation(View):
         return render(request, "form.html")
 
 
-#
 class Login(FormView):
     # logowanie i authentykacja
     form_class = LogForm
     template_name = "login.html"
     success_url = "/"
-
 
     def form_valid(self, form):
         print("sss")
@@ -53,6 +49,7 @@ class Login(FormView):
             return super().form_valid(form)
         form.add_error(None, "Zły login lub haslo")
         return super().form_invalid(form)
+
 
 class Logout(View):
     def get(self, request):
@@ -110,7 +107,11 @@ class Register(View):
 #             return redirect("landing-page")
 
 
-
 class Form(View):
     def get(self, request):
-        return render(request, "form.html")
+        categories = Category.objects.all()
+        institutions = Institution.objects.all()
+        ctx = {
+            "categories": categories,
+            "institutions": institutions}
+        return render(request, "form.html", ctx)
