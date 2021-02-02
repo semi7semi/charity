@@ -2,7 +2,10 @@
 {% block header-class %}
 <header>
 {% endblock header-class %}
-{% block header %}{% endblock header %}
+{% block header %}
+    </header>
+{% endblock header %}
+
 {% block content %}
       <div class="slogan container container--90">
         <div class="slogan--item">
@@ -10,14 +13,15 @@
         <h1>Imie: {{ user.first_name }}</h1>
         <h1>nazwoski: {{ user.last_name }}</h1>
         <h1>email: {{ user.email }}</h1>
+            <h2>Twoje wsparcie:</h2>
             {% for donation in donations %}
-            <h2></h2>
+            <p></p>
             <h1>Nazwa instytucji: {{ donation.institution }}</h1>
-            <h1>Ilosc workow: {{ donation.quantity }}</h1>
+            <h3>Ilosc workow: {{ donation.quantity }}</h3>
             {% for cat in donation.categories.all %}
-            <h1>Jakie rzeczy: {{ cat.name }}</h1>
+            <h3>Jakie rzeczy: {{ cat.name }}</h3>
             {% endfor %}
-            <h1>Data oddania: {{ donation.pick_up_date }}</h1>
+            <h3>Data oddania: {{ donation.pick_up_date }}</h3>
             {% endfor %}
         </div>
       </div>

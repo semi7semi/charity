@@ -59,21 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
     /**
      * TODO: callback to page change event
      */
-    categorySelect(e) {
-      e.preventDefault();
-      const formSelect = e.currentTarget.elements;
-      if (formSelect.checked === true) {
-        let categories = formSelect.dataset.id
-      }
-      const institution = document.querySelectorAll(".js-inst")
-      for (i = 0; i < institution.length; i++)
-        if (institution[i].dataset.id === categories) {
-          institution[i].querySelector("div.js-inst").classList.add("disp_none")
-        }
-
-    }
-
-
 
     changePage(e) {
       e.preventDefault();
@@ -236,6 +221,22 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     updateForm() {
       this.$step.innerText = this.currentStep;
+      if (this.currentStep === 3) {
+        var id_cat = document.getElementsByName("categories");
+        var list = [];
+        for (var i = 0; i < id_cat.length; i++) {
+          if (id_cat[i].checked === true)
+            list.push(id_cat[i].value)
+
+        }
+        var address = "/get_institution?"
+        for (var i=0;i<list.length;i++)
+        {
+          address = address + "cat_id="+list[i]+"&"
+        }
+      }
+
+
 
       // TODO: Validation
 
@@ -258,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
      *
      * TODO: validation, send data to server
      */
-    submit(e) {
+       submit(e) {
       e.preventDefault();
       this.currentStep++;
       this.updateForm();
@@ -269,3 +270,11 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 });
+
+// let bags = document.querySelector('.bags')
+// bags.addEventListener('input', function(){
+//     let number_of_bags = bags.value
+//     let bags_text = document.querySelector('.summary--text')
+//     bags_text.innerHTML = number_of_bags
+//     console.log(number_of_bags)
+// })

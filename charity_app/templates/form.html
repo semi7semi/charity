@@ -30,6 +30,7 @@
           </div>
         </div>
       </div>
+  </header>
 {% endblock header %}
 
 {% block content %}
@@ -110,7 +111,7 @@
             <div class="form-group form-group--checkbox js-inst">
               <label>
 
-                <input type="radio" name="organization" value="{{ institution.id }}" data-id="{{ institution.id }}" />
+                <input type="radio" name="organization" value="{{ institution.id }}" data-id="{{ institution.categories.id }}" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{ institution.name }}</div>
@@ -230,6 +231,7 @@
               <button type="submit" class="btn">Potwierdzam</button>
             </div>
           </div>
+          {% csrf_token %}
         </form>
       </div>
     </section>

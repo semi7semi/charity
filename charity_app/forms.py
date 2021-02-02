@@ -22,5 +22,5 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class LogForm(forms.Form):
-    username = forms.CharField(max_length=64, label="", widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    username = forms.CharField(max_length=64, label="", widget=forms.TextInput(attrs={"placeholder": "Email"}))
     password = forms.CharField(max_length=64, label="", widget=forms.PasswordInput(attrs={"placeholder": "Password"}))

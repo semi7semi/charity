@@ -19,8 +19,9 @@
                     <li><a href="{% url 'user-details' request.user.id %}">Profil</a></li>
                     <li><a href="#">Ustawienia</a></li>
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
-<!--                    do poprawy tylko dla superuser-->
+                    {% if request.user.is_superuser %}
                     <li><a href="../admin/">Panel administracyjny</a></li>
+                    {% endif %}
                 </ul>
             </li>
         </ul>
@@ -43,7 +44,6 @@
                 </ul>
             </nav>
             {% block header %}{% endblock header %}
-        </header>
         {% block content %}{% endblock content %}
         <footer>
             <div id="contact" class="contact">

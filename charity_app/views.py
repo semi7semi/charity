@@ -28,6 +28,8 @@ class LandingPage(View):
         return render(request, "index.html", ctx)
 
 
+
+
 class UserDetails(View):
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
@@ -121,10 +123,12 @@ class Form(View):
             "categories": categories,
             "institutions": institutions}
         return render(request, "form.html", ctx)
+
     def post(selfself, request, pk):
         quantity = request.POST.get("bags")
         categories = request.POST.get("categories")
-        institution = request.POST.get("organization")
+        institution_name = request.POST.get("organization")
+        institution = Institution.objects.get(name=institution_name)
         adress = request.POST.get("adress")
         phone_number = request.POST.get("phone")
         city = request.POST.get("city")
@@ -146,5 +150,20 @@ class Form(View):
         donation.user = user
         for cat in categories:
             donation.categories.add(cat)
+        print(donation)
         # donation.save()
         return redirect("form-confirmation.html")
+
+
+def get_inst(request):
+    cat_ids = request.GET.getlist("cat_id")#['1', '2']
+    if cat_ids.lenght == 1:
+        institutions = Institution.objects.filter(categories=cat_ids[0])
+    elif cat_ids.lenght == 2:
+        institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1])
+    elif cat_ids.lenght == 3:
+        institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1]).filter(categories=cat_ids[2])
+    else:
+        institutions = Institution.objects.all()
+    ctx = {"institutions": institutions}
+    return render(request, "form.html", ctx)
