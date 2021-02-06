@@ -65,18 +65,6 @@ class Logout(View):
         return redirect("landing-page")
 
 
-# class Login2(View):
-#     def get(self, request):
-#         return render(request, "login.html")
-#     def post(self, request):
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-#         user = authenticate(request, username=email, password=password)
-#         if user:
-#             login(request, user)
-#         return redirect("landing-page")
-
-
 class Register(View):
     def get(self, request):
         form = RegisterUserForm()
@@ -92,29 +80,6 @@ class Register(View):
         return redirect("landing-page")
 
 
-# class Register2(View):
-#     def get(self, request):
-#         return render(request, "register.html")
-#     def post(self, request):
-#         name = request.POST.get("name")
-#         surname = request.POST.get("surname")
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-#         password2 = request.POST.get("password2")
-#         if not name or not surname or not email or not password or not password2 or password != password2:
-#             ctx = {"error": "Uzupelnij wszystkie pola"}
-#             return render(request, "register.html", ctx)
-#         else:
-#             user = User()
-#             user.username = email
-#             user.first_name = name
-#             user.last_name = surname
-#             user.email = email
-#             user.set_password(password)
-#             user.save()
-#             return redirect("landing-page")
-
-
 class Form(View):
     def get(self, request, pk):
         categories = Category.objects.all()
@@ -126,10 +91,9 @@ class Form(View):
 
     def post(selfself, request, pk):
         quantity = request.POST.get("bags")
-        categories = request.POST.get("categories")
-        institution_name = request.POST.get("organization")
-        institution = Institution.objects.get(name=institution_name)
-        adress = request.POST.get("adress")
+        categories = request.POST.getlist("categories")
+        institution = request.POST.get("organization")
+        address = request.POST.get("address")
         phone_number = request.POST.get("phone")
         city = request.POST.get("city")
         zip_code = request.POST.get("postcode")
@@ -137,10 +101,21 @@ class Form(View):
         pick_up_time = request.POST.get("time")
         pick_up_comment = request.POST.get("more_info")
         user = User.objects.get(pk=pk)
+        print(quantity)
+        print(categories)
+        print(institution)
+        print(address)
+        print(phone_number)
+        print(city)
+        print(zip_code)
+        print(pick_up_date)
+        print(pick_up_time)
+        print(pick_up_comment)
+        print(user.username)
         donation = Donation()
         donation.quantity = quantity
-        donation.institution = institution
-        donation.address = adress
+        donation.institution = Institution.objects.get(pk=int(institution))
+        donation.address = address
         donation.phone_number = phone_number
         donation.city = city
         donation.zip_code = zip_code
@@ -148,12 +123,16 @@ class Form(View):
         donation.pick_up_time = pick_up_time
         donation.pick_up_comment = pick_up_comment
         donation.user = user
+        donation.save()
         for cat in categories:
-            donation.categories.add(cat)
+            donation.categories.add(Category.objects.get(pk=int(cat)))
         print(donation)
-        # donation.save()
-        return redirect("form-confirmation.html")
+        donation.save()
+        return redirect("form-confirm")
 
+
+def donation_cofirmation(request):
+    return render (request, "form-confirmation.html")
 
 def get_inst(request):
     cat_ids = request.GET.getlist("cat_ids")#['1', '2']

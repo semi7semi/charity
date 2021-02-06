@@ -18,9 +18,9 @@
             <p></p>
             <h1>Nazwa instytucji: {{ donation.institution }}</h1>
             <h3>Ilosc workow: {{ donation.quantity }}</h3>
-            {% for cat in donation.categories.all %}
-            <h3>Jakie rzeczy: {{ cat.name }}</h3>
-            {% endfor %}
+
+            <h3>Jakie rzeczy: {% for cat in donation.categories.all %} {{ cat.name }} {% endfor %}</h3>
+
             <h3>Data oddania: {{ donation.pick_up_date }}</h3>
             {% endfor %}
         </div>

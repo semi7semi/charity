@@ -247,7 +247,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
       }
 
-
       if (this.currentStep === 5) {
         let instchecked = document.querySelector('input[type="radio"]:checked')
         console.log(instchecked)
@@ -306,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: validation, send data to server
      */
        submit(e) {
-      e.preventDefault();
+      // e.preventDefault();
       this.currentStep++;
       this.updateForm();
     }
