@@ -222,21 +222,67 @@ document.addEventListener("DOMContentLoaded", function() {
     updateForm() {
       this.$step.innerText = this.currentStep;
       if (this.currentStep === 3) {
-        var id_cat = document.getElementsByName("categories");
-        var list = [];
-        for (var i = 0; i < id_cat.length; i++) {
-          if (id_cat[i].checked === true)
-            list.push(id_cat[i].value)
+        var ids = get_checked_checkboxes();
+        var params = new URLSearchParams();
+        ids.forEach(id => params.append("cat_ids", id))
+        var address = '/get_institution?' + params.toString();
+        fetch(address)
+            .then(response => response.text())
+            .then(data => {
+              console.log(data);
+              document.getElementById("org").innerHTML = data
+            });
 
-        }
-        var address = "/get_institution?"
-        for (var i=0;i<list.length;i++)
+      function get_checked_checkboxes()
         {
-          address = address + "cat_id="+list[i]+"&"
+            var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
+            var ids = [];
+            markedCheckbox.forEach(box => ids.push(box.value));
+            console.log(ids);
+            return ids;
         }
+        let bags = document.getElementById('bags').value
+        let bags_summary = document.getElementById('summary-bags')
+        bags_summary.innerText = bags + " worki rzeczy do oddania"
+
       }
 
 
+      if (this.currentStep === 5) {
+        let instchecked = document.querySelector('input[type="radio"]:checked')
+        console.log(instchecked)
+        let inst2_summary = document.getElementById('summary-inst')
+        inst2_summary.innerText = instchecked
+
+        let address = document.getElementById('address').value
+        let address_summary = document.querySelector('.a1')
+        address_summary.innerText = address
+
+        let city = document.getElementById('city').value
+        let city_summary = document.querySelector('.a2')
+        city_summary.innerText = city
+
+        let postcode = document.getElementById('postcode').value
+        let postcode_summary = document.querySelector('.a3')
+        postcode_summary.innerText = postcode
+
+        let phone = document.getElementById('phone').value
+        let phone_summary = document.querySelector('.a4')
+        phone_summary.innerText = phone
+
+        let date = document.getElementById('date').value
+        let date_summary = document.querySelector('.a5')
+        date_summary.innerText = date
+
+        let time = document.getElementById('time').value
+        let time_summary = document.querySelector('.a6')
+        time_summary.innerText = time
+
+        let more_info = document.getElementById('more_info').value
+        let more_info_summary = document.querySelector('.a7')
+        more_info_summary.innerText = more_info
+
+      }
 
       // TODO: Validation
 
@@ -271,10 +317,4 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// let bags = document.querySelector('.bags')
-// bags.addEventListener('input', function(){
-//     let number_of_bags = bags.value
-//     let bags_text = document.querySelector('.summary--text')
-//     bags_text.innerHTML = number_of_bags
-//     console.log(number_of_bags)
-// })
+

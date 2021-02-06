@@ -26,5 +26,5 @@ urlpatterns = [
     path('register/', Register.as_view(), name="register"),
     path('form/<int:pk>/', Form.as_view(), name="form-view"),
     path('user/<int:pk>/', UserDetails.as_view(), name="user-details"),
-    path('get_institution', get_inst, name="get_inst")
+    path('get_institution/', get_inst, name="get_inst")
 ]

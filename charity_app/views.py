@@ -156,14 +156,17 @@ class Form(View):
 
 
 def get_inst(request):
-    cat_ids = request.GET.getlist("cat_id")#['1', '2']
-    if cat_ids.lenght == 1:
-        institutions = Institution.objects.filter(categories=cat_ids[0])
-    elif cat_ids.lenght == 2:
-        institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1])
-    elif cat_ids.lenght == 3:
-        institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1]).filter(categories=cat_ids[2])
+    cat_ids = request.GET.getlist("cat_ids")#['1', '2']
+    if cat_ids is not None:
+        if len(cat_ids) == 1:
+            institutions = Institution.objects.filter(categories=cat_ids[0])
+        elif len(cat_ids) == 2:
+            institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1])
+        elif len(cat_ids) == 3:
+            institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1]).filter(categories=cat_ids[2])
+        else:
+            institutions = Institution.objects.filter(categories=cat_ids[0]).filter(categories=cat_ids[1]).filter(categories=cat_ids[2]).filter(categories=cat_ids[3])
     else:
         institutions = Institution.objects.all()
     ctx = {"institutions": institutions}
-    return render(request, "form.html", ctx)
+    return render(request, "form2.html", ctx)
