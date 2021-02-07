@@ -13,7 +13,9 @@ from charity_app.models import Category, Institution, Donation
 #     Category.objects.create(
 #         name = cat
 #     )
-#
+
+Category.objects.create(name="Inne")
+
 # I1 = Institution.objects.create(
 #     name=f"Fundacja nr 1",
 #     description=f"Krótki opis fundacji 1",
@@ -90,5 +92,5 @@ from charity_app.models import Category, Institution, Donation
 # D1.categories.add(c1)
 # D2.categories.add(c2)
 
-u = User.objects.get(id=5)
-u.delete()
+# u = User.objects.get(id=5)
+# u.delete()

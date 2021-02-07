@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class RegisterUserForm(forms.ModelForm):
@@ -24,3 +25,12 @@ class RegisterUserForm(forms.ModelForm):
 class LogForm(forms.Form):
     username = forms.CharField(max_length=64, label="", widget=forms.TextInput(attrs={"placeholder": "Email"}))
     password = forms.CharField(max_length=64, label="", widget=forms.PasswordInput(attrs={"placeholder": "Password"}))
+
+
+class UserCreation(UserCreationForm):
+    first_name = forms.CharField(max_length=32, required=True)
+    last_name = forms.CharField(max_length=32)
+    email = forms.EmailField()
+
+    class Meta(UserCreationForm.Meta):
+        fields = ("username", "first_name", "last_name", "email")

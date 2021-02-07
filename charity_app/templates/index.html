@@ -92,9 +92,11 @@
               <div class="subtitle">{{ fundation.description }}</div>
             </div>
             <div class="col">
-              {% for cat in fundation.categories.all %}
-              <div class="text">{{ cat.name }}</div>
+              <div class="text">
+                {% for cat in fundation.categories.all %}
+                {{ cat.name }}
               {% endfor %}
+              </div>
             </div>
           </li>
           {% endfor %}
@@ -122,11 +124,12 @@
               <div class="title">{{ organization.name }}</div>
               <div class="subtitle">{{ organization.description }}</div>
             </div>
-
             <div class="col">
-              {% for org in organization.categories.all %}
-              <div class="text">{{ org.name }}</div>
-              {% endfor %}
+              <div class="text">
+                {% for org in organization.categories.all %}
+                {{ org.name }}
+                {% endfor %}
+              </div>
             </div>
           </li>
           {% endfor %}
@@ -153,11 +156,12 @@
               <div class="title">{{ local.name }}</div>
               <div class="subtitle">{{ local.description }}</div>
             </div>
-
             <div class="col">
-              {% for loc in local.categories.all %}
-              <div class="text">{{ loc.name }}</div>
+              <div class="text">
+                {% for loc in local.categories.all %}
+                {{ loc.name }}
               {% endfor %}
+              </div>
             </div>
           </li>
 {% endfor %}
