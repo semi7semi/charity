@@ -229,7 +229,6 @@ document.addEventListener("DOMContentLoaded", function() {
         fetch(address)
             .then(response => response.text())
             .then(data => {
-              console.log(data);
               document.getElementById("org").innerHTML = data
             });
 
@@ -238,20 +237,27 @@ document.addEventListener("DOMContentLoaded", function() {
             var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
             var ids = [];
             markedCheckbox.forEach(box => ids.push(box.value));
-            console.log(ids);
             return ids;
         }
         let bags = document.getElementById('bags').value
-        let bags_summary = document.getElementById('summary-bags')
-        bags_summary.innerText = bags + " worki rzeczy do oddania"
 
+        if (bags === "1") {
+          let bags_summary = document.getElementById('summary-bags')
+          bags_summary.innerText = `${bags} worek rzeczy do oddania`
+        } else if (bags > 1 && bags < 5) {
+          let bags_summary = document.getElementById('summary-bags')
+          bags_summary.innerText = `${bags} worki rzeczy do oddania`
+        } else {
+          let bags_summary = document.getElementById('summary-bags')
+          bags_summary.innerText = `${bags} worków rzeczy do oddania`
+        }
       }
 
       if (this.currentStep === 5) {
         let instchecked = document.querySelector('input[type="radio"]:checked')
-        console.log(instchecked)
+        console.log(instchecked.value)
         let inst2_summary = document.getElementById('summary-inst')
-        inst2_summary.innerText = instchecked
+        inst2_summary.innerText = `Dla organizacji: ${instchecked.value}`
 
         let address = document.getElementById('address').value
         let address_summary = document.querySelector('.a1')
